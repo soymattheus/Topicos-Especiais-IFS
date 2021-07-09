@@ -28,6 +28,7 @@ export default function App() {
             component={LoginRegister}
             options={{
               title: 'Login',
+              headerShown: false,
               headerTitleStyle: { fontWeight: 'bold', textAlign: 'center' },
             }}
           />

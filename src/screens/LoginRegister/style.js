@@ -34,10 +34,6 @@ export const styles = StyleSheet.create({
     width: '90%',
     height: 45,
     padding: 10,
-    borderBottomWidth: 1,
-    borderColor: '#C47DF6',
-    borderRadius: 5,
-    marginBottom: 20,
     color: '#fff',
   },
   textSimple: {
@@ -59,7 +55,7 @@ export const styles = StyleSheet.create({
   },
   passwordRecover: {
     marginTop: 10,
-    alignItems: 'center',
+    alignItems: 'flex-end',
     paddingVertical: 10,
   },
   button: {
@@ -76,6 +72,9 @@ export const styles = StyleSheet.create({
   viewInput: {
     flexDirection: 'row',
     width: '100%',
-    marginRight: 14,
+    paddingRight: 26,
+    borderBottomWidth: 1,
+    borderBottomColor: '#fff',
+    alignItems: 'center',
   }
 });

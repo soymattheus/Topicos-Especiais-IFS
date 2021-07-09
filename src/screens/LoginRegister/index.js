@@ -17,8 +17,8 @@ import { styles } from './style';
 
 export function LoginRegister({navigation,route}) {
   const [exibicao, setExibicao] = useState('login')
-  const [showLoginPassword, setShowLoginPassword] = useState(true)
-  const [showRegisterPassword, setShowRegisterPassword] = useState(true)
+  const [hideLoginPassword, setHideLoginPassword] = useState(true)
+  const [hideRegisterPassword, setHideRegisterPassword] = useState(true)
 
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
@@ -111,7 +111,8 @@ useEffect(() => {
       </View>
       {
         exibicao === 'login' ? 
-        <>
+        /* LOGIN */
+       <>
           <View style={styles.viewInput}>
           <Icon
             style={{ paddingHorizontal: 4 }}
@@ -145,17 +146,15 @@ useEffect(() => {
             onChangeText={(password) => setPassword(password)}
             placeholder={'Senha'}
             placeholderTextColor='#fff'
-            secureTextEntry={showLoginPassword}
+            secureTextEntry={hideLoginPassword}
           />
           <TouchableOpacity
             style={{ paddingVertical: 4 }}
-            onPress={() => {
-              setShowLoginPassword(!showLoginPassword);
-            }}
+            onPress={() => {setHideLoginPassword(!hideLoginPassword)}}
           >
             <Icon
               style={{ paddingHorizontal: 4 }}
-              name = {showLoginPassword ? 'eye-slash' : 'eye'}
+              name = {hideLoginPassword ? 'eye' : 'eye-slash'}
               type='font-awesome'
               color='#fff'
               size={22}
@@ -168,9 +167,8 @@ useEffect(() => {
 
 
           <View style={styles.passwordRecover}>
-            <Text style={styles.textSimple}>Esqueceu sua senha?</Text>
-            <TouchableOpacity style={styles.button} onPress={() => Alert.alert('Informação:',`A sua eḿail e senha cadastrados: ${registeredEmail} ${registeredPassword}`)}>
-              <Text style={styles.buttonText}>Lembrar minha senha</Text>
+            <TouchableOpacity onPress={() => Alert.alert('Informação:',`A sua eḿail e senha cadastrados: ${registeredEmail} ${registeredPassword}`)}>
+              <Text style={styles.buttonText}>Esqueceu sua senha?</Text>
             </TouchableOpacity>
           </View>
         </>
@@ -247,18 +245,18 @@ useEffect(() => {
         onChangeText={(password) => setPassword(password)}
         placeholder={'Senha'}
         placeholderTextColor='#fff'
-        secureTextEntry={showRegisterPassword}
+        secureTextEntry={hideRegisterPassword}
         style={styles.input}
       />
       <TouchableOpacity
             style={{ paddingVertical: 4 }}
             onPress={() => {
-              setShowRegisterPassword(!showRegisterPassword);
+              setHideRegisterPassword(!hideRegisterPassword);
             }}
           >
             <Icon
               style={{ paddingHorizontal: 4 }}
-              name = {showRegisterPassword ? 'eye-slash' : 'eye'}
+              name = {hideRegisterPassword ? 'eye' : 'eye-slash'}
               //name='eye'
               type='font-awesome'
               color='#fff'
@@ -269,8 +267,11 @@ useEffect(() => {
       <TouchableOpacity style={styles.loginButton} onPress={handleRegister}>
         <Text style={styles.loginButtonText}>Cadastrar</Text>
       </TouchableOpacity>
+
+      
         </>
       }
+      
     </View>
     </ScrollView>
   );
