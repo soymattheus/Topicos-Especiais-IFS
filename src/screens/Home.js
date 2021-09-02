@@ -44,7 +44,7 @@ export default function Home({navigation,route}) {
             );
         }}
         style={{ padding: 10 }}
-      ><MaterialCommunityIcons name="exit-run" color="#FFF" size={26} />
+      ><MaterialCommunityIcons name="logout" color="#FFF" size={26} />
       </TouchableOpacity>
     </View>
 

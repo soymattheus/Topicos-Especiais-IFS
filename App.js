@@ -42,23 +42,25 @@ export default function App() {
           <Stack.Screen
             name="Login"
             component={Login}
-            /* options={{
+            options={{
               title: 'Login',
               headerTitleStyle: { fontWeight: 'bold', textAlign: 'center' },
-            }} */
+            }}
           />
           <Stack.Screen
             name="Register"
             component={Register}
-            /* options={{ title: 'Cadastre-se' }} */
+            options={{ title: 'Cadastre-se' }}
+
           />
           <Stack.Screen
             name="BottomStack"
             component={BottomStack}
-            /* options={({ navigation, route }) => ({
+            options={({ navigation, route }) => ({
               headerTitle : getHeaderTitle( route ),
               headerTitleStyle: { fontWeight: 'bold', textAlign: 'center' },
-          })} */
+              
+          })}
           />
         </Stack.Navigator>
       </NavigationContainer>

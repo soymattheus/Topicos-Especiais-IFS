@@ -3,9 +3,9 @@ import { View, Text, TextInput, TouchableOpacity, Alert, StyleSheet } from 'reac
 import Separator from '../components/Separator';
 import ProductModel from '../models/ProductModel';
 
-export default function Product({ navigation, route }) {
+export default function Product({ navigation, route, nome }) {
   const [state, setState] = React.useState({
-    productName: '',
+    productName: nome,
     productPrice: '',
     productQty: '',
   });
@@ -15,10 +15,22 @@ export default function Product({ navigation, route }) {
   }
 
   let id = route.params ? route.params.id : undefined;
- 
+
+/*   React.useEffect(() => {
+    setState({productName:'', productPrice:'', productQty:''});
+  }, []); */
+
+/*   React.useEffect(() => {
+    if (route.params) return;
+    route.params = null;
+    setState({productName:'route.params.name',productPrice:'route.params.price.toString()',productQty:'route.params.qty.toString()'});
+
+  }, []); */
+
   React.useEffect(() => {
     if (!route.params) return;
     setState({productName:route.params.name,productPrice:route.params.price.toString(),productQty:route.params.qty.toString()});
+
   }, [route]);
 
   async function handleSave() {
@@ -53,7 +65,7 @@ export default function Product({ navigation, route }) {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.titleText}>Dados do Produto</Text>
+      <Text style={styles.titleText}>{state.productName}Dados do Produto</Text>
       <TextInput
         style={styles.input}
         value={state.productName}

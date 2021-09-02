@@ -1,18 +1,14 @@
 import * as React from 'react';
-import { View, StyleSheet, FlatList } from 'react-native';
+import { View, StyleSheet, FlatList, TouchableOpacity, Text } from 'react-native';
 import ProductItem from '../components/ProductItem';
 import ProductModel from '../models/ProductModel';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 export default function ProductList({ navigation, route }) {
+  
 
   const [items, setItems] = React.useState([]);
-  
-  // useEffect será disparado toda vez que a variável/parâmetro route é alterado,
-  // isto é, toda vez que entrar nesta tela redirecionada de outra (ou ela receber o foco
-  // vido de outra aba, evento addListener).
-  // Pega todos os produtos cadastrados no banco AsyncStorage e seta/preenche a 
-  // variável de estado (vetor de produtos)
- 
+
   React.useEffect(() => {
     ProductModel.getItems().then(items => setItems(items))
 

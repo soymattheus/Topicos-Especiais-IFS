@@ -26,10 +26,10 @@ async function getUserData() {
   }
 }
 
-async function handleDelete() {
+/* async function handleDelete() {
   //usada para remover a chave userData (dados gravados) nos testes
   await SecureStore.deleteItemAsync('userData');
-}
+} */
 
 React.useEffect(() => {
     getUserData();
@@ -70,10 +70,6 @@ React.useEffect(() => {
     navigation.navigate('Register');
   }
 
-  function handleDeleteRegister(){
-    SecureStore.deleteItemAsync('userData');
-  }
-
   return (
     <View style={styles.container}>
       <Text style={styles.titleText}>Secure Store App</Text>
@@ -102,24 +98,23 @@ React.useEffect(() => {
 
       <Separator marginVertical={10} />
       { (!haveAccount)  ? 
-      (<><Text style={styles.textSimple}>É a primeira vez aqui e ainda não se cadastrou?</Text>
+      (<>
+      <Text style={styles.textSimple}>É a primeira vez aqui e ainda não se cadastrou?</Text>
       <TouchableOpacity
         style={styles.button}
         onPress={handleRegister}>
         <Text style={styles.buttonText}>Cadastre-se</Text>
-      </TouchableOpacity></>):
-      (<><Text style={styles.textSimple}>Já possuo uma conta, porém...</Text>
+      </TouchableOpacity>
+      </>
+      ) : (
+      <>
       <TouchableOpacity style={styles.button} onPress={() => Alert.alert('Informação:',`A sua senha
        foi enviada para o email cadastrado: ${registeredState.email} ${registeredState.password}`)}>
-        <Text style={styles.buttonText}>Esqueci minha senha</Text>
-      </TouchableOpacity></>)}
-      <Separator marginVertical={30} />
-      <Text style={styles.textSimpleJustify}>Este aplicativo faz uso de armazenamento local com
-       SecureStore e fará também com AsyncStorage</Text>
-
-      <TouchableOpacity style={styles.saveButton} onPress={handleDeleteRegister}>
-        <Text style={{color:'red'}}>Deletar chave</Text>
+        <Text style={styles.buttonText}>Esqueceu a senha?</Text>
       </TouchableOpacity>
+
+      </>
+      )}
     </View>
   );
 }

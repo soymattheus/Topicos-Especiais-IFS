@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { View, Text, TextInput, TouchableOpacity, Alert, StyleSheet } from 'react-native';
+import { MaterialCommunityIcons } from '@expo/vector-icons'; // Ícone do botão Sair
 import * as SecureStore from 'expo-secure-store';
 
 import Separator from '../components/Separator';
@@ -35,7 +36,7 @@ export default function Register({ navigation }) {
       } else {
         saveUserData({ name: state.userName, phone: state.userPhone, email: state.userEmail,
            password: state.userPassword });
-        navigation.navigate('Login', { email: state.userEmail });
+           navigation.navigate('Login', { email: state.userEmail });
       }
     }
   }
@@ -44,7 +45,36 @@ export default function Register({ navigation }) {
     setState({ ...state, [key]: value });
   }
 
-  return (
+  function goBack() {
+    navigation.navigate('Login');
+  }
+
+  function phoneMask(num) {
+    var num = num.replace(/\D/g, "");
+    num = num.replace(/^0/, "");
+    if (num.length > 10) {
+      num = num.replace(/^(\d\d)(\d)(\d{4})(\d{4}).*/, "($1) $2 $3-$4");
+    } else if (num.length > 7) {
+      num = num.replace(/^(\d\d)(\d)(\d{4})(\d{0,4}).*/, "($1) $2 $3-$4");
+    } else if (num.length > 2) {
+      num = num.replace(/^(\d\d)(\d)(\d{0,4})/, "($1) $2 $3");
+    } else {
+      num = num.replace(/^(\d*)/, "($1");
+    }
+    return num;
+  }
+
+
+  return (<>
+      <View style={styles.goBack}>
+        <TouchableOpacity
+          onPress={goBack}
+          style={{ padding: 10 }}
+        >
+          <MaterialCommunityIcons name="arrow-left" color="#FFF" size={26} />
+        </TouchableOpacity>
+    </View>
+
     <View style={styles.container}>
       <Text style={styles.titleText}>Dados do Usuário</Text>
       <TextInput
@@ -52,46 +82,52 @@ export default function Register({ navigation }) {
         value={state.userName}
         onChangeText={(value) => handleChangeText('userName', value)}
         placeholder={'Nome'}
+        placeholderTextColor='#D5D5D5'
       />
+
       <TextInput
         style={styles.input}
         value={state.userPhone}
-        onChangeText={(value) => handleChangeText('userPhone', value)}
+        onChangeText={(value) => handleChangeText('userPhone', phoneMask(value))}
         placeholder={'Telefone'}
+        placeholderTextColor='#D5D5D5'
         keyboardType="numeric"
       />
+
       <TextInput
         style={styles.input}
         value={state.userEmail}
         onChangeText={(value) => handleChangeText('userEmail', value)}
         placeholder={'E-mail'}
+        placeholderTextColor='#D5D5D5'
         keyboardType="email-address"
         textContentType="emailAddress"
         autoCapitalize="none"
       />
+
       <TextInput
         value={state.userPassword}
         onChangeText={(value) => handleChangeText('userPassword', value)}
         placeholder={'Senha'}
+        placeholderTextColor='#D5D5D5'
         secureTextEntry={true}
         style={styles.input}
       />
+
       <TextInput
         value={userPasswordConfirm}
         onChangeText={(value) => setUserPasswordConfirm(value)}
         placeholder={'Confirmar Senha'}
+        placeholderTextColor='#D5D5D5'
         secureTextEntry={true}
         style={styles.input}
       />
+
       <TouchableOpacity style={styles.saveButton} onPress={handleRegister}>
         <Text style={styles.saveButtonText}>Salvar</Text>
       </TouchableOpacity>
-
-      <Separator marginVertical={30} />
-      <Text style={styles.textSimple}>Atenção!</Text>
-      <Text style={styles.textSimple}>Informe um e-mail válido, pois em caso de recuperação de
-       senha, ela será enviada para o e-mail cadastrado.</Text>
     </View>
+    </>
   );
 }
 
@@ -130,10 +166,18 @@ const styles = StyleSheet.create({
     borderColor: '#BBC9DD',
     borderRadius: 5,
     marginBottom: 10,
+    color: '#D5D5D5'
   },
   textSimple: {
     color: '#D5D5D5',
     width: '95%',
     textAlign: 'justify',
+  },
+  goBack: {
+    alignItems: 'flex-start',
+    justifyContent: 'center',
+    backgroundColor: '#4A586E',
+    paddingRight: 10,
+    paddingTop: 10,
   },
 });

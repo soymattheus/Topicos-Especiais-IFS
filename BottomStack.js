@@ -4,9 +4,12 @@ import * as React from 'react';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import { MaterialCommunityIcons } from '@expo/vector-icons'; //Novo Produto
 import { MaterialIcons } from '@expo/vector-icons'; //Listar Produtos
+
 import Home from './src/screens/Home';
 import Product from './src/screens/Product';
 import ProductList from './src/screens/ProductList';
+import { About } from './src/screens/About';
+import { Delete } from './src/screens/Delete';
 
 const Tab = createMaterialBottomTabNavigator();
 
@@ -26,6 +29,14 @@ export default function BottomStack({ navigation, route }) {
                     tabBarIcon: ({ color }) => <MaterialCommunityIcons name="home" color={color} size={26} />,
                 }}
             />
+                <Tab.Screen
+                    name="ProductList"
+                    component={ProductList}
+                    options={{
+                        tabBarLabel: 'Listar',
+                        tabBarIcon: ({ color }) => <MaterialIcons name="list-alt" color={color} size={26} />,
+                    }}
+                />
             <Tab.Screen
                 name="Product"
                 component={Product}
@@ -35,13 +46,21 @@ export default function BottomStack({ navigation, route }) {
                 }}
             />
             <Tab.Screen
-                name="ProductList"
-                component={ProductList}
+                name="About"
+                component={About}
                 options={{
-                    tabBarLabel: 'Listar',
-                    tabBarIcon: ({ color }) => <MaterialIcons name="list-alt" color={color} size={26} />,
+                    tabBarLabel: 'Informações',
+                    tabBarIcon: ({ color }) => <MaterialIcons name="info" color={color} size={26} />,
                 }}
             />
+            {<Tab.Screen
+                name="Delete"
+                component={Delete}
+                options={{
+                    tabBarLabel: 'Delete',
+                    tabBarIcon: ({ color }) => <MaterialIcons name="delete" color={color} size={26} />,
+                }}
+            />}
         </Tab.Navigator>
     );
 }
